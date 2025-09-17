@@ -1,0 +1,61 @@
+# Git 相关
+.git
+.gitignore
+.gitattributes
+
+# Python 相关
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+.coverage
+.tox/
+.venv/
+.env
+
+# IDE 相关
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+
+# 输出文件
+outputs/
+*.wav
+*.mp3
+*.flac
+
+# 模型文件（在运行时下载）
+# checkpoints/
+
+# 文档和示例（保留 examples 目录）
+README*.md
+docs/
+archive/
+
+# Docker 相关
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# 其他
+*.zip
+*.tar.gz
+*.rar

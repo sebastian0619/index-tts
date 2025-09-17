@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  indextts:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: indextts:latest
+    container_name: indextts-webui
+    ports:
+      - "7860:7860"
+    volumes:
+      # 挂载模型目录（可选，用于持久化模型文件）
+      - ./checkpoints:/app/checkpoints
+      # 挂载输出目录（可选，用于保存生成的音频文件）
+      - ./outputs:/app/outputs
+      # 挂载示例音频目录
+      - ./examples:/app/examples:ro
+    environment:
+      # 设置 ModelScope 缓存目录
+      - MODELSCOPE_CACHE=/app/modelscope_cache
+      # GPU 相关设置
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7860/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5m
+    command: ["webui"]
+
+  # CPU 版本服务（如果没有 GPU）
+  indextts-cpu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: indextts:latest
+    container_name: indextts-webui-cpu
+    ports:
+      - "7861:7860"
+    volumes:
+      - ./checkpoints:/app/checkpoints
+      - ./outputs:/app/outputs
+      - ./examples:/app/examples:ro
+    environment:
+      - MODELSCOPE_CACHE=/app/modelscope_cache
+      - CUDA_VISIBLE_DEVICES=""
+    restart: unless-stopped
+    profiles:
+      - cpu-only
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7860/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5m
+    command: ["webui"]
+
+networks:
+  default:
+    name: indextts-network
