@@ -23,36 +23,15 @@ services:
       - CUDA_VISIBLE_DEVICES=0
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
-    # GPU 支持配置（多种方式确保兼容性）
-    runtime: nvidia
+    # 现代 GPU 支持配置
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7860/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 5m
-    command: ["webui"]
-
-  # CPU 版本服务（如果没有 GPU）
-  indextts-cpu:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: indextts:latest
-    container_name: indextts-webui-cpu
-    ports:
-      - "7861:7860"
-    volumes:
-      - ./checkpoints:/app/checkpoints
-      - ./outputs:/app/outputs
-      - ./examples:/app/examples:ro
-    environment:
-      - MODELSCOPE_CACHE=/app/modelscope_cache
-      - CUDA_VISIBLE_DEVICES=""
-    restart: unless-stopped
-    profiles:
-      - cpu-only
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7860/"]
       interval: 30s
