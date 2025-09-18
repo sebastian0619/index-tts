@@ -52,8 +52,8 @@ dependencies = [
   "tensorboard==2.9.1",
   "textstat>=0.7.10",
   "tokenizers==0.21.0",
-  "torch==2.8.*",
-  "torchaudio==2.8.*",
+  "torch==2.6.*",
+  "torchaudio==2.6.*",
   "tqdm>=4.67.1",
   "transformers==4.52.1",
 
@@ -106,9 +106,9 @@ torchvision = [
 
 [[tool.uv.index]]
 name = "pytorch-cuda"
-# Use PyTorch built for NVIDIA Toolkit version 12.8.
-# PyTorch cu128 wheels are specifically built for CUDA 12.8
+# Use PyTorch built for NVIDIA Toolkit version 12.6.
+# PyTorch cu126 wheels are specifically built for CUDA 12.6
 # Available versions: https://pytorch.org/get-started/locally/
-url = "https://download.pytorch.org/whl/cu128"
+url = "https://download.pytorch.org/whl/cu126"
 # Only use this index when explicitly requested by `tool.uv.sources`.
 explicit = true
