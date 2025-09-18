@@ -106,7 +106,8 @@ torchvision = [
 
 [[tool.uv.index]]
 name = "pytorch-cuda"
-# Use PyTorch built for NVIDIA Toolkit version 12.1.
+# Use PyTorch built for NVIDIA Toolkit version 12.1 (compatible with CUDA 12.6).
+# PyTorch cu121 wheels work with CUDA 12.6 runtime due to forward compatibility
 # Available versions: https://pytorch.org/get-started/locally/
 url = "https://download.pytorch.org/whl/cu121"
 # Only use this index when explicitly requested by `tool.uv.sources`.
