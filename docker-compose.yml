@@ -16,6 +16,10 @@ services:
       - ./outputs:/app/outputs
       # 挂载示例音频目录
       - ./examples:/app/examples:ro
+      # 挂载 NVIDIA 库文件到容器内
+      - /usr/lib/x86_64-linux-gnu/libcuda.so.1:/usr/lib/x86_64-linux-gnu/libcuda.so.1:ro
+      - /usr/lib/x86_64-linux-gnu/libnvidia-ml.so:/usr/lib/x86_64-linux-gnu/libnvidia-ml.so:ro
+      - /usr/lib/x86_64-linux-gnu/libnvidia-ml.so.1:/usr/lib/x86_64-linux-gnu/libnvidia-ml.so.1:ro
     environment:
       # 设置 ModelScope 缓存目录
       - MODELSCOPE_CACHE=/app/modelscope_cache
@@ -25,6 +29,10 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
     # GPU 支持配置（多种方式确保兼容性）
     runtime: nvidia
+    devices:
+      - /dev/nvidia0:/dev/nvidia0
+      - /dev/nvidiactl:/dev/nvidiactl
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7860/"]
