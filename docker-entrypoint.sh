@@ -7,11 +7,17 @@ echo "=== IndexTTS2 Docker 容器启动 ==="
 
 # 检查是否有 GPU 支持
 if command -v nvidia-smi &> /dev/null; then
-    echo "检测到 NVIDIA GPU:"
-    nvidia-smi --query-gpu=name,memory.total,memory.free --format=csv,noheader,nounits
-    export USE_GPU=true
+    if nvidia-smi &> /dev/null; then
+        echo "检测到 NVIDIA GPU:"
+        nvidia-smi --query-gpu=name,memory.total,memory.free --format=csv,noheader,nounits 2>/dev/null || echo "GPU 信息获取失败，但 GPU 可用"
+        export USE_GPU=true
+    else
+        echo "警告: nvidia-smi 不可用，可能是驱动或容器配置问题"
+        echo "将尝试使用 CPU 模式"
+        export USE_GPU=false
+    fi
 else
-    echo "警告: 未检测到 NVIDIA GPU，将使用 CPU 模式"
+    echo "警告: 未检测到 NVIDIA GPU 工具，将使用 CPU 模式"
     export USE_GPU=false
 fi
 
