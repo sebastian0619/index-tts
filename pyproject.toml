@@ -106,8 +106,8 @@ torchvision = [
 
 [[tool.uv.index]]
 name = "pytorch-cuda"
-# Use PyTorch built for NVIDIA Toolkit version 12.4.
+# Use PyTorch built for NVIDIA Toolkit version 12.1.
 # Available versions: https://pytorch.org/get-started/locally/
-url = "https://download.pytorch.org/whl/cu124"
+url = "https://download.pytorch.org/whl/cu121"
 # Only use this index when explicitly requested by `tool.uv.sources`.
 explicit = true
