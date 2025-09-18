@@ -22,7 +22,7 @@ else
 fi
 
 # 检查模型文件是否存在
-MODEL_FILES=("bpe.model" "gpt.pth" "config.yaml" "s2mel.pth" "wav2vecbert_stats.pt")
+MODEL_FILES=("bpe.model" "gpt.pth" "config.yaml" "s2mel.pth" "wav2vec2bert_stats.pt")
 MISSING_FILES=()
 
 echo "检查模型文件..."
