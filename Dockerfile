@@ -1,6 +1,6 @@
 # IndexTTS2 Docker Image
 # 基于 NVIDIA CUDA 的官方镜像，支持 PyTorch GPU 加速
-FROM nvidia/cuda:12.6-devel-ubuntu22.04
+FROM nvidia/cuda:12.4-devel-ubuntu22.04
 
 # 设置环境变量
 ENV DEBIAN_FRONTEND=noninteractive
