@@ -25,9 +25,17 @@ fi
 MODEL_FILES=("bpe.model" "gpt.pth" "config.yaml" "s2mel.pth" "wav2vecbert_stats.pt")
 MISSING_FILES=()
 
+echo "检查模型文件..."
+echo "当前目录: $(pwd)"
+echo "checkpoints 目录内容:"
+ls -la checkpoints/ 2>/dev/null || echo "checkpoints 目录不存在"
+
 for file in "${MODEL_FILES[@]}"; do
     if [ ! -f "checkpoints/$file" ]; then
+        echo "缺少文件: checkpoints/$file"
         MISSING_FILES+=("$file")
+    else
+        echo "找到文件: checkpoints/$file"
     fi
 done
 
@@ -49,13 +57,27 @@ if [ ${#MISSING_FILES[@]} -ne 0 ]; then
     fi
     
     # 再次检查文件是否下载成功
+    echo "下载完成，重新检查文件..."
+    echo "checkpoints 目录内容:"
+    ls -la checkpoints/ 2>/dev/null || echo "checkpoints 目录不存在"
+    
+    STILL_MISSING=()
     for file in "${MODEL_FILES[@]}"; do
         if [ ! -f "checkpoints/$file" ]; then
-            echo "错误: 模型文件 $file 下载失败"
-            exit 1
+            echo "仍然缺少: checkpoints/$file"
+            STILL_MISSING+=("$file")
+        else
+            echo "已下载: checkpoints/$file"
         fi
     done
-    echo "模型文件下载完成！"
+    
+    if [ ${#STILL_MISSING[@]} -ne 0 ]; then
+        echo "警告: 以下文件仍然缺少: ${STILL_MISSING[*]}"
+        echo "尝试继续启动，某些功能可能不可用"
+        # 不退出，继续尝试启动
+    else
+        echo "所有模型文件下载完成！"
+    fi
 else
     echo "模型文件已存在，跳过下载"
 fi
