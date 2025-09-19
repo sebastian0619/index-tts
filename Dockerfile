@@ -1,5 +1,5 @@
-# IndexTTS2 Docker Image
-# 基于 NVIDIA CUDA 的官方镜像，支持 PyTorch GPU 加速
+# IndexTTS2 Docker Image - 基于最新版本优化
+# 支持 CUDA 12.6 和 Python 3.11
 FROM nvidia/cuda:12.6.3-devel-ubuntu22.04
 
 # 设置环境变量

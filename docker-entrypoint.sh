@@ -21,7 +21,7 @@ else
     export USE_GPU=false
 fi
 
-# 检查模型文件是否存在
+# 检查模型文件是否存在（修正文件名）
 MODEL_FILES=("bpe.model" "gpt.pth" "config.yaml" "s2mel.pth" "wav2vec2bert_stats.pt")
 MISSING_FILES=()
 

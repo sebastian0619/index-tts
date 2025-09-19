@@ -10,20 +10,14 @@ services:
     ports:
       - "7860:7860"
     volumes:
-      # 挂载模型目录（可选，用于持久化模型文件）
       - ./checkpoints:/app/checkpoints
-      # 挂载输出目录（可选，用于保存生成的音频文件）
       - ./outputs:/app/outputs
-      # 挂载示例音频目录
       - ./examples:/app/examples:ro
     environment:
-      # 设置 ModelScope 缓存目录
       - MODELSCOPE_CACHE=/app/modelscope_cache
-      # GPU 相关设置
       - CUDA_VISIBLE_DEVICES=0
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
-    # 使用现代 GPU 支持配置
     deploy:
       resources:
         reservations:
@@ -40,7 +34,7 @@ services:
       start_period: 5m
     command: ["webui"]
 
-  # CPU 版本服务（如果没有 GPU）
+  # CPU 版本服务（备选）
   indextts-cpu:
     build:
       context: .

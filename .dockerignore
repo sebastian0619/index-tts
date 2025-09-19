@@ -42,13 +42,9 @@ outputs/
 *.mp3
 *.flac
 
-# 模型文件（在运行时下载）
-# checkpoints/
-
-# 文档和示例（保留 examples 目录和主 README）
+# 文档目录（保留主 README.md）
 docs/
 archive/
-# 保留主 README.md 文件用于包构建
 
 # Docker 相关
 Dockerfile

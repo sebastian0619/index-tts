@@ -65,5 +65,3 @@ jobs:
         echo "🚀 使用方法:"
         echo "docker pull ghcr.io/${{ github.repository }}:latest"
         echo "docker run -p 7860:7860 --gpus all ghcr.io/${{ github.repository }}:latest"
-        echo ""
-        echo "💡 更多使用方法请查看 DOCKER_README.md"
